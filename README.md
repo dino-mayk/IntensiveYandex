@@ -7,6 +7,29 @@ Intensive Yandex
 git clone https://github.com/dino-mayk/IntensiveYandex.git
 ```
 
+Создайте виртуальное окружение:
+
+Windows:
+```bash
+python -m venv venv
+```
+Mac, Linux:
+```bash
+python3 -m venv venv
+```
+
+Активируйте виртуальное окружение:
+
+Windows:
+```bash
+cd venv/Scripts/
+.\activate
+```
+Mac, Linux:
+```bash
+source venv/bin/activate
+```
+
 Скачайте зависимости:
 
 Windows:
