@@ -1,5 +1,7 @@
 Intensive Yandex
 
+![flake8 test](https://github.com/dino-mayk/IntensiveYandex/actions/workflows/python-package.yml/badge.svg)
+
 # Установка
 
 Клонируйте репозиторий:
