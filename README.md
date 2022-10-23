@@ -47,11 +47,22 @@ pip3 install -r requirements.txt
 
 Windows:
 ```bash
-python IntensiveYandex/manage.py runserver
+python lyceum/manage.py runserver
 ```
 Mac, Linux:
 ```bash
-python3 IntensiveYandex/manage.py runserver
+python3 lyceum/manage.py runserver
+```
+
+# Запуск тестов
+
+Windows:
+```bash
+python lyceum/manage.py test app
+```
+Mac, Linux:
+```bash
+python3 lyceum/manage.py test app
 ```
 
 # Другое
