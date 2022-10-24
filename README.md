@@ -47,22 +47,22 @@ pip3 install -r requirements.txt
 
 Windows:
 ```bash
-python lyceum/manage.py runserver
+python manage.py runserver
 ```
 Mac, Linux:
 ```bash
-python3 lyceum/manage.py runserver
+python3 manage.py runserver
 ```
 
 # Запуск тестов
 
 Windows:
 ```bash
-python lyceum/manage.py test app
+python manage.py test
 ```
 Mac, Linux:
 ```bash
-python3 lyceum/manage.py test app
+python3 manage.py test
 ```
 
 # Другое

@@ -6,4 +6,7 @@ def item_list(request):
 
 
 def item_detail(reguest, pk):
+    if pk == 0:
+        return HttpResponse(status=404)
+
     return HttpResponse('Цисло: {}'.format(pk))
