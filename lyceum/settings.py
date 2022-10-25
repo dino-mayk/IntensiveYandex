@@ -1,15 +1,15 @@
 from pathlib import Path
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
-import environ
-
-env = environ.Env()
-# environ.Env.read_env()
-environ.Env.read_env('lyceum/lyceum/dev.env')
+# dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), 'dev.env')
+load_dotenv(dotenv_path)
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", default='True') == 'True'
 ALLOWED_HOSTS = ['*']
-
 INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'catalog.apps.CatalogConfig',
