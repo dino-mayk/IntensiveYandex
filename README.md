@@ -2,6 +2,12 @@ Intensive Yandex
 
 ![flake8 test](https://github.com/dino-mayk/IntensiveYandex/actions/workflows/python-package.yml/badge.svg)
 
+# Оглавление
+
+- [Установка](#установка)
+- [Запуск](#запуск)
+- [Тесты](#тесты)
+
 # Установка
 
 Клонируйте репозиторий:
@@ -54,7 +60,7 @@ Mac, Linux:
 python3 manage.py runserver
 ```
 
-# Запуск тестов
+# Тесты
 
 Windows:
 ```bash
@@ -65,7 +71,7 @@ Mac, Linux:
 python3 manage.py test
 ```
 
-# Другое
+## Другое
 
 Критичные данные располагаются в .env локально, для разработки в dev.env.
 Чтобы запустить на production измените комментарий в settings.py.
