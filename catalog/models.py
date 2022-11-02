@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-# validate_slug
-from catalog.validators import validate_amazing
+from catalog.validators import validate_must_be_param
 from Core.models import catalog
 
 
@@ -41,7 +40,7 @@ class catalog_category(catalog):
 
 class catalog_item(catalog):
     text = models.TextField(
-        validators=[validate_amazing],
+        validators=[validate_must_be_param('превосходно', 'роскошно')],
         verbose_name="Описание",
         help_text="Должно содержаться слово превосходно или роскошно"
     )
