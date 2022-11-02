@@ -75,3 +75,8 @@ python3 manage.py test
 
 Критичные данные располагаются в .env локально, для разработки в dev.env.
 Чтобы запустить на production измените комментарий в settings.py.
+
+Диаграмма базы данных:
+```bash
+https://app.quickdatabasediagrams.com/#/d/ReX14b
+```
