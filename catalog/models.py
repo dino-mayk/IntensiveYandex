@@ -1,31 +1,16 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from catalog.validators import validate_must_be_param
-from Core.models import catalog
+from Core.models import catalog, catalog_slug
 
 
-class catalog_tag(catalog):
-    slug = models.SlugField(
-        max_length=200,
-        unique=True,
-        verbose_name="Название для url",
-        help_text="максимальная длина - 200 символов, \
-            только цифры, буквы латиницы и символы - и _"
-    )
-
+class catalog_tag(catalog_slug):
     class Meta:
         verbose_name = "Тег"
         verbose_name_plural = "Теги"
 
 
-class catalog_category(catalog):
-    slug = models.SlugField(
-        max_length=200,
-        unique=True,
-        verbose_name="Название для url",
-        help_text="максимальная длина - 200 символов, \
-            только цифры, буквы латиницы и символы - и _"
-    )
+class catalog_category(catalog_slug):
     weight = models.PositiveIntegerField(
         default=100,
         validators=[MinValueValidator(1), MaxValueValidator(32766)],

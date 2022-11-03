@@ -83,12 +83,12 @@ class ModelsTests(TestCase):
 
         cls.category = Category.objects.create(
             name="Тест",
-            slug="test_test-testI234",
+            slug="test_test-testA1",
             weight=32766
         )
         cls.tag = Tag.objects.create(
             name="Тест",
-            slug="test_test-testI234"
+            slug="test_test-testA2"
         )
 
     def test_item_positive(self):
@@ -124,7 +124,7 @@ class ModelsTests(TestCase):
 
         self.category = Category(
             name="тест",
-            slug="test_test-testI24",
+            slug="test_test-testA3",
             weight=32766
         )
         self.category.full_clean()
@@ -151,7 +151,7 @@ class ModelsTests(TestCase):
 
         self.tag = Tag(
             name="тестик",
-            slug="test_test-testI23"
+            slug="test_test-testA4"
         )
         self.tag.full_clean()
         self.tag.save()
@@ -164,7 +164,7 @@ class ModelsTests(TestCase):
         with self.assertRaises(ValidationError):
             self.tag = Tag(
                 name="тестик",
-                slug="test_test-testI23#%&рп"
+                slug="test_test-tesikI23#%&рп"
             )
             self.tag.full_clean()
             self.tag.save()
