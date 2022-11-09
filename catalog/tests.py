@@ -82,12 +82,12 @@ class ModelsTests(TestCase):
 
         cls.category = Category.objects.create(
             name="тест",
-            slug="test_test-testA123",
+            slug="test_test-testA1",
             weight=32766
         )
         cls.tag = Tag.objects.create(
             name="тест",
-            slug="test_test-testA123"
+            slug="test_test-testA2"
         )
 
     def tear_down():
@@ -127,7 +127,7 @@ class ModelsTests(TestCase):
 
         self.category = Category(
             name="тест",
-            slug="test_test-testA123",
+            slug="test_test-testA3",
             weight=32766
         )
         self.category.full_clean()
@@ -154,7 +154,7 @@ class ModelsTests(TestCase):
 
         self.tag = Tag(
             name="тест",
-            slug="test_test-testA123"
+            slug="test_test-testA4"
         )
         self.tag.full_clean()
         self.tag.save()

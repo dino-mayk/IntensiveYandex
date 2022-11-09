@@ -41,6 +41,68 @@ class catalog_item(catalog):
         verbose_name="теги"
     )
 
+    class Meta:
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
+
+    def __str__(self):
+        return self.name
+
+
+class catalog_item_preview(models.Model):
+    upload = models.ImageField(
+        upload_to='uploads/preview/%Y/%m',
+        verbose_name="картинка",
+        help_text='загрузите картинку'
+    )
+    item = models.OneToOneField(
+        catalog_item,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        verbose_name="товар",
+        help_text='выберете товар'
+    )
+
+    @property
+    def get_img(self):
+        return get_thumbnail(self.upload, '300x300', crop='center', quality=51)
+
+    def img_tmb(self):
+        if self.upload:
+            return mark_safe(
+                f'<img src="{self.get_img.url}">'
+            )
+        return 'нет изображений'
+
+    img_tmb.short_description = 'превьюшки'
+    img_tmb.allow_tags = True
+
+    def sorl_delete(**kwargs):
+        delete(kwargs['file'])
+
+    cleanup_pre_delete.connect(sorl_delete)
+
+    def __str__(self):
+        return self.upload.url
+
+    class Meta:
+        verbose_name = "превью товара"
+        verbose_name_plural = "превьюшки товаров"
+
+
+class catalog_item_gallery(models.Model):
+    upload = models.ImageField(
+        upload_to='uploads/gallery/%Y/%m',
+        verbose_name="картинка",
+        help_text='загрузите картинку'
+    )
+    item = models.ForeignKey(
+        catalog_item,
+        on_delete=models.CASCADE,
+        verbose_name="товар",
+        help_text='выберете товар'
+    )
+
     @property
     def get_img(self):
         return get_thumbnail(self.upload, '300x300', crop='center', quality=51)
@@ -60,39 +122,9 @@ class catalog_item(catalog):
 
     cleanup_pre_delete.connect(sorl_delete)
 
-    class Meta:
-        verbose_name = "товар"
-        verbose_name_plural = "товары"
-
-    def __str__(self):
-        return self.name
-
-
-class catalog_item_preview(models.Model):
-    upload = models.ImageField('uploads/preview/%Y/%m')
-    item = models.ForeignKey(
-        catalog_item,
-        on_delete=models.CASCADE
-    )
-
     def __str__(self):
         return self.upload.url
 
     class Meta:
-        verbose_name = "фотографии товара"
-        verbose_name_plural = "фотогалерея товара"
-
-
-class catalog_item_gallery(models.Model):
-    upload = models.ImageField(upload_to='uploads/gallery/%Y/%m')
-    tags = models.ManyToManyField(
-        catalog_item(),
-        verbose_name="товар"
-    )
-
-    def __str__(self):
-        return self.upload.url
-
-    class Meta:
-        verbose_name = "фотографии товара"
-        verbose_name_plural = "фотогалерея товара"
+        verbose_name = "фотографию товара"
+        verbose_name_plural = "фотогалерея товаров"
