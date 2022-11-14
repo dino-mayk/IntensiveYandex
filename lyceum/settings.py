@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'grappelli',
+    'tinymce',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.admin',

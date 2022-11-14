@@ -4,6 +4,7 @@ from catalog.validators import validate_must_be_param
 from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
 from sorl.thumbnail import get_thumbnail, delete
+from tinymce.models import HTMLField
 
 
 class catalog_tag(catalog_slug):
@@ -25,7 +26,7 @@ class catalog_category(catalog_slug):
 
 
 class catalog_item(catalog):
-    text = models.TextField(
+    text = HTMLField(
         validators=[validate_must_be_param('превосходно', 'роскошно')],
         verbose_name="описание",
         help_text="должно содержаться слово превосходно или роскошно"

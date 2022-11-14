@@ -9,6 +9,7 @@ urlpatterns = [
     path('catalog/', include('catalog.urls'), name='catalog'),
     path('about/', include('about.urls'), name='about'),
     path('grappelli/', include('grappelli.urls')),
+    path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls, name='admin')
 ]
 
