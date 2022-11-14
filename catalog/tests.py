@@ -7,7 +7,7 @@ from .models import catalog_tag as Tag
 
 class StaticURLTests(TestCase):
     def test_item_list_endpoint(self):
-        with self.subTest('There is a catalog'):
+        with self.subTest('there is a catalog'):
             response = Client().get('/catalog/')
             self.assertEqual(response.status_code, 200)
 
@@ -15,53 +15,52 @@ class StaticURLTests(TestCase):
         tests = [
             {
                 'value': 1,
-                'description': 'Positive number',
+                'description': 'positive number',
                 'code': 200
             },
             {
                 'value': 202,
-                'description': 'Positive number',
+                'description': 'positive number',
                 'code': 200
             },
             {
                 'value': 0,
-                'description': 'Zero',
+                'description': 'zero',
                 'code': 404
             },
             {
                 'value': -1,
-                'description': 'Negative number',
+                'description': 'negative number',
                 'code': 404
             },
             {
                 'value': -101,
-                'description': 'Negative number',
+                'description': 'negative number',
                 'code': 404
             },
             {
                 'value': 1.0,
-                'description': 'Float number',
+                'description': 'float number',
                 'code': 404
             },
             {
                 'value': 1.205,
-                'description': 'Float number',
+                'description': 'float number',
                 'code': 404
             },
             {
                 'value': -1.0,
-                'description':
-                'Negative float number',
+                'description': 'negative float number',
                 'code': 404
             },
             {
                 'value': -1.205,
-                'description': 'Negative float number',
+                'description': 'negative float number',
                 'code': 404
             },
             {
                 'value': '01',
-                'description': 'String',
+                'description': 'string',
                 'code': 404
             }
         ]
@@ -82,21 +81,25 @@ class ModelsTests(TestCase):
         super().setUpClass()
 
         cls.category = Category.objects.create(
-            name="Тест",
-            slug="test_test-testI234",
+            name="тест",
+            slug="test_test-testA1",
             weight=32766
         )
         cls.tag = Tag.objects.create(
-            name="Тест",
-            slug="test_test-testI234"
+            name="тест",
+            slug="test_test-testA2"
         )
+
+    def tear_down():
+        Item.objects.delete()
+        super().tearDown()
 
     def test_item_positive(self):
         item_count = Item.objects.count()
 
         self.item = Item(
             name="тест",
-            text="РоскОшно",
+            text="роскОшно",
             category=self.category
         )
         self.item.save()
@@ -124,7 +127,7 @@ class ModelsTests(TestCase):
 
         self.category = Category(
             name="тест",
-            slug="test_test-testI24",
+            slug="test_test-testA3",
             weight=32766
         )
         self.category.full_clean()
@@ -150,8 +153,8 @@ class ModelsTests(TestCase):
         tag_count = Tag.objects.count()
 
         self.tag = Tag(
-            name="тестик",
-            slug="test_test-testI23"
+            name="тест",
+            slug="test_test-testA4"
         )
         self.tag.full_clean()
         self.tag.save()
@@ -163,8 +166,8 @@ class ModelsTests(TestCase):
 
         with self.assertRaises(ValidationError):
             self.tag = Tag(
-                name="тестик",
-                slug="test_test-testI23#%&рп"
+                name="тест",
+                slug="test_test-testI234#%&рп"
             )
             self.tag.full_clean()
             self.tag.save()
