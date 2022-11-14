@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-6">
+                <img src="{% static 'other/img/monkey.jpg' %}" width="500px" height="450px">
+            </div>
+            <div class="col-6">
+                <img src="{% static 'other/img/human.jpg' %}" width="500px" height="450px">
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,18 +3,25 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 # dotenv_path = join(dirname(__file__), '.env')
 dotenv_path = join(dirname(__file__), 'dev.env')
 load_dotenv(dotenv_path)
-BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", default='True') == 'True'
 ALLOWED_HOSTS = ['*']
+
 INSTALLED_APPS = [
-    'Core.apps.CoreConfig',
+    'core.apps.CoreConfig',
     'about.apps.AboutConfig',
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
+    'grappelli',
+    'tinymce',
+    'sorl.thumbnail',
+    'django_cleanup.apps.CleanupConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +45,9 @@ ROOT_URLCONF = 'lyceum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,8 +90,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev'
+]
+STATIC_ROOT = 'static'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
