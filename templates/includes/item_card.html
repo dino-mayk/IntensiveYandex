@@ -1,0 +1,20 @@
+{% with request.resolver_match.view_name as view_name %}
+<div class="card item col-4 my-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        {% if view_name != 'catalog:item_detail' %}
+            <p class="card-text">{{ item.text|truncatewords_html:10 }}</p>
+        {% else %}
+            <p class="card-text">{{ item.text }}</p>
+        {% endif %}
+        <p class="card-text">Категория: {{ item.category.name }}</p>
+        <p class="card-text">
+            Теги:
+            {% for tag in item.tags.all %}
+                {{ tag.name }}.
+            {% endfor %}
+        </p>
+        <a href="#" class="btn btn-primary">Купить</a>
+    </div>
+</div>
+{% endwith %}

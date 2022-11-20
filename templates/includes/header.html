@@ -2,6 +2,7 @@
 
 <header class="p-3 text-bg-dark">
     <div class="container">
+
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img src="{% static 'favicon_package/logo.svg' %}"
@@ -21,7 +22,7 @@
               <li><a href="{% url 'about:description' %}" class="nav-link px-2 text-white">О проекте</a></li>
             {% endif %}
 
-            {% if view_name == 'catalog:item_list' %}
+            {% if view_name == 'catalog:item_list' or view_name == 'catalog:item_detail'%}
               <li><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-secondary">Список товаров</a></li>
             {% else %}
               <li><a href="{% url 'catalog:item_list' %}" class="nav-link px-2 text-white">Список товаров</a></li>
@@ -29,13 +30,11 @@
           {% endwith %}
         </ul>
 
-        <!--
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
+          <button type="button" class="btn btn-outline-light me-2" href="{% url 'homepage:login' %}">Login</button>
+          <button type="button" class="btn btn-warning" href="{% url 'homepage:registration' %}">Sign-up</button>
         </div>
-        -->
-
+        
       </div>
     </div>
 </header>

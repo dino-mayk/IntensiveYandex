@@ -1,10 +1,12 @@
 from django.db import models
-from core.models import catalog, catalog_slug
-from catalog.validators import validate_must_be_param
+from django.db.models import Prefetch
 from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
-from sorl.thumbnail import get_thumbnail, delete
+from sorl.thumbnail import delete, get_thumbnail
 from tinymce.models import HTMLField
+
+from catalog.validators import validate_must_be_param
+from core.models import catalog, catalog_slug
 
 
 class catalog_tag(catalog_slug):
@@ -25,12 +27,37 @@ class catalog_category(catalog_slug):
         verbose_name_plural = "категории"
 
 
+class ItemManager(models.Manager):
+    def homepage(self):
+        return (
+            self.get_queryset()
+                .filter(is_published=True, is_on_main=True)
+                .select_related('category')
+                .order_by('name')
+                .prefetch_related(
+                    Prefetch('tags', queryset=catalog_tag.objects.all())
+                )
+        )
+
+    def catalog(self):
+        return (
+            self.get_queryset()
+                .filter(is_published=True)
+                .select_related('category')
+                .order_by('category__name')
+                .prefetch_related(
+                    Prefetch('tags', queryset=catalog_tag.objects.all())
+                )
+        )
+
+
 class catalog_item(catalog):
     text = HTMLField(
         validators=[validate_must_be_param('превосходно', 'роскошно')],
         verbose_name="описание",
         help_text="должно содержаться слово превосходно или роскошно"
     )
+    objects = ItemManager()
     category = models.ForeignKey(
         catalog_category(),
         on_delete=models.CASCADE,
@@ -40,6 +67,10 @@ class catalog_item(catalog):
     tags = models.ManyToManyField(
         catalog_tag(),
         verbose_name="теги"
+    )
+    is_on_main = models.BooleanField(
+        default=False,
+        verbose_name="в главном"
     )
 
     class Meta:
