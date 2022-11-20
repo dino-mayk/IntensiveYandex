@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Наши предложения</h1>
+        {% for item in items %}
+        {% include "includes/item_card.html" %}
+        {% endfor %}
+    </div>
+{% endblock %}
