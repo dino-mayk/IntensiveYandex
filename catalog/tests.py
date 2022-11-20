@@ -1,78 +1,9 @@
-from django.test import Client, TestCase
 from django.core.exceptions import ValidationError
-from .models import catalog_item as Item
+from django.test import Client, TestCase
+
 from .models import catalog_category as Category
+from .models import catalog_item as Item
 from .models import catalog_tag as Tag
-
-
-class StaticURLTests(TestCase):
-    def test_item_list_endpoint(self):
-        with self.subTest('there is a catalog'):
-            response = Client().get('/catalog/')
-            self.assertEqual(response.status_code, 200)
-
-    def test_item_detail_endpoint(self):
-        tests = [
-            {
-                'value': 1,
-                'description': 'positive number',
-                'code': 200
-            },
-            {
-                'value': 202,
-                'description': 'positive number',
-                'code': 200
-            },
-            {
-                'value': 0,
-                'description': 'zero',
-                'code': 404
-            },
-            {
-                'value': -1,
-                'description': 'negative number',
-                'code': 404
-            },
-            {
-                'value': -101,
-                'description': 'negative number',
-                'code': 404
-            },
-            {
-                'value': 1.0,
-                'description': 'float number',
-                'code': 404
-            },
-            {
-                'value': 1.205,
-                'description': 'float number',
-                'code': 404
-            },
-            {
-                'value': -1.0,
-                'description': 'negative float number',
-                'code': 404
-            },
-            {
-                'value': -1.205,
-                'description': 'negative float number',
-                'code': 404
-            },
-            {
-                'value': '01',
-                'description': 'string',
-                'code': 404
-            }
-        ]
-
-        for dictionary in tests:
-            value = str(dictionary['value'])
-            description = str(dictionary['description'])
-            code = int(dictionary['code'])
-
-            with self.subTest(description):
-                response = Client().get(f'/catalog/{value}/')
-                self.assertEqual(response.status_code, code)
 
 
 class ModelsTests(TestCase):
@@ -173,3 +104,9 @@ class ModelsTests(TestCase):
             self.tag.save()
 
         self.assertEqual(Tag.objects.count(), tag_count)
+
+
+class TaskPagesTests(TestCase):
+    def test_item_list_context(self):
+        response = Client().get('/catalog/')
+        self.assertIn('items', response.context)
