@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
 from feedback import forms
+from feedback.models import Feedback
 
 
 def feedback(request):
@@ -13,13 +14,21 @@ def feedback(request):
     }
 
     if form.is_valid():
+        text = form.cleaned_data.get('text')
+
+        feedback = Feedback.objects.create(
+            text=text
+        )
+        feedback.save()
+
         send_mail(
             'Theme of letter',
-            form.cleaned_data.get('text'),
+            text,
             'from@example.com',
             ['to_1@example.com', 'to_2@example.com'],
             fail_silently=False
         )
+
         return redirect('feedback:feedback')
 
     return render(request, template, context)
