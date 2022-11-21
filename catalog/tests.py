@@ -110,3 +110,6 @@ class TaskPagesTests(TestCase):
     def test_item_list_context(self):
         response = Client().get('/catalog/')
         self.assertIn('items', response.context)
+
+
+# python manage.py test catalog

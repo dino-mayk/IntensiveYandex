@@ -7,6 +7,7 @@ Intensive Yandex
 - [Установка](#установка)
 - [Запуск](#запуск)
 - [Тесты](#тесты)
+- [Разработка](#разработка)
 
 # Установка
 
@@ -73,8 +74,35 @@ python3 manage.py test
 
 ## Разработка
 
-Критичные данные располагаются в .env локально, для разработки в dev.env.
-Чтобы запустить на production измените комментарий в settings.py.
+Создание миграции:
+Windows:
+```bash
+python manage.py makemigrations app
+```
+Mac, Linux:
+```bash
+python3 manage.py makemigrations app
+```
+
+Добавление миграции:
+Windows:
+```bash
+python manage.py migrate
+```
+Mac, Linux:
+```bash
+python3 manage.py migrate
+```
+
+Создание фикстур:
+Windows:
+```bash
+python manage.py dumpdata > data.json
+```
+Mac, Linux:
+```bash
+python3 manage.py dumpdata > data.json
+```
 
 Запуск isort:
 ```bash
@@ -85,3 +113,6 @@ isort .
 ```bash
 https://app.quickdatabasediagrams.com/#/d/ReX14b
 ```
+
+Критичные данные располагаются в .env локально, для разработки в dev.env.
+Чтобы запустить на production измените комментарий в settings.py.

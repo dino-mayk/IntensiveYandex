@@ -6,3 +6,6 @@ class StaticURLTests(TestCase):
         with self.subTest('there is a about.'):
             response = Client().get('/about/')
             self.assertEqual(response.status_code, 200)
+
+
+# python manage.py test about
