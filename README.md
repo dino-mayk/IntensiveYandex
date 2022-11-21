@@ -72,9 +72,10 @@ Mac, Linux:
 python3 manage.py test
 ```
 
-## Разработка
+# Разработка
 
 Создание миграции:
+
 Windows:
 ```bash
 python manage.py makemigrations app
@@ -85,6 +86,7 @@ python3 manage.py makemigrations app
 ```
 
 Добавление миграции:
+
 Windows:
 ```bash
 python manage.py migrate
@@ -95,6 +97,7 @@ python3 manage.py migrate
 ```
 
 Создание фикстур:
+
 Windows:
 ```bash
 python manage.py dumpdata > data.json
@@ -105,11 +108,13 @@ python3 manage.py dumpdata > data.json
 ```
 
 Запуск isort:
+
 ```bash
 isort .
 ```
 
 Диаграмма базы данных:
+
 ```bash
 https://app.quickdatabasediagrams.com/#/d/ReX14b
 ```
