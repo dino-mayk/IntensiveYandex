@@ -78,11 +78,11 @@ python3 manage.py test
 
 Windows:
 ```bash
-python manage.py makemigrations app
+python manage.py makemigrations <app>
 ```
 Mac, Linux:
 ```bash
-python3 manage.py makemigrations app
+python3 manage.py makemigrations <app>
 ```
 
 Добавление миграции:
@@ -94,6 +94,17 @@ python manage.py migrate
 Mac, Linux:
 ```bash
 python3 manage.py migrate
+```
+
+Создание сквош миграции:
+
+Windows:
+```bash
+python manage.py squashmigrations <appname> <squashfrom> <squashto>
+```
+Mac, Linux:
+```bash
+python3 manage.py squashmigrations <appname> <squashfrom> <squashto>
 ```
 
 Создание фикстур:
@@ -117,6 +128,42 @@ isort .
 
 ```bash
 https://app.quickdatabasediagrams.com/#/d/ReX14b
+```
+
+Создание администратора:
+
+Windows:
+```bash
+python manage.py createsuperuser
+```
+
+Mac, Linux:
+```bash
+python3 manage.py createsuperuser
+```
+
+Смена пароля в аккаунте:
+
+Windows:
+```bash
+python manage.py changepassword <user_name>
+```
+
+Mac, Linux:
+```bash
+python3 manage.py changepassword <user_name>
+```
+
+Создание приложения:
+
+Windows:
+```bash
+python manage.py startapp <app_name>
+```
+
+Mac, Linux:
+```bash
+python3 manage.py startapp <app_name>
 ```
 
 Критичные данные располагаются в .env локально, для разработки в dev.env.
