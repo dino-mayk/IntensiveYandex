@@ -14,16 +14,11 @@ def feedback(request):
     }
 
     if form.is_valid():
-        text = form.cleaned_data.get('text')
-
-        feedback = Feedback.objects.create(
-            text=text
-        )
-        feedback.save()
+        form.save()
 
         send_mail(
             'Theme of letter',
-            text,
+            form.cleaned_data.get('text'),
             'from@example.com',
             ['to_1@example.com', 'to_2@example.com'],
             fail_silently=False

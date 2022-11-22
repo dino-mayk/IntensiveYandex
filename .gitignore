@@ -3,6 +3,4 @@ static
 venv
 .env
 __pycache__
-
-test.py
-data.json
+sent_emails
