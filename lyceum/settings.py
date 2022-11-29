@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
+    'users.apps.UsersConfig',
     'grappelli',
     'tinymce',
     'sorl.thumbnail',
@@ -109,6 +110,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+LOGIN_URL = 'auth/login/'
+LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 if DEBUG:
     MIDDLEWARE += [
