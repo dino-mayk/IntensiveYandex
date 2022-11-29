@@ -12,6 +12,9 @@ class Feedback(models.Model):
         help_text="дата создания",
     )
 
+    def __str__(self):
+        return f'вопрос №{self.id}'
+
     class Meta:
         verbose_name = "вопрос"
         verbose_name_plural = "вопросы"

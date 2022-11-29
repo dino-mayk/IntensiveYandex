@@ -8,6 +8,7 @@ urlpatterns = [
     path('feedback/', include('feedback.urls'), name='feedback'),
     path('about/', include('about.urls'), name='about'),
     path('catalog/', include('catalog.urls'), name='catalog'),
+    path('auth/', include('users.urls'), name='users'),
     path('admin/', admin.site.urls, name='admin'),
     path('grappelli/', include('grappelli.urls'), name='grappelli'),
     path('tinymce/', include('tinymce.urls')),
