@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login
-from users.models import CustomUser
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 
 from users.forms import CustomUserProfileForm, CustomUserSignUpForm
+from users.models import CustomUser
 
 
 def signup(request):
@@ -19,8 +19,7 @@ def signup(request):
             login(request, user)
 
             return redirect('homepage:home')
-    else:
-        form = CustomUserSignUpForm()
+    form = CustomUserSignUpForm()
     return render(request, 'users/signup.html', {'form': form})
 
 
@@ -35,7 +34,7 @@ def user_list(request):
 
 
 def user_detail(request, pk):
-    user = get_object_or_404(CustomUser.objects.all(), pk=pk)
+    user = get_object_or_404(CustomUser, pk=pk)
     context = {
         'user': user,
     }
