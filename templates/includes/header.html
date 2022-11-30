@@ -35,10 +35,12 @@
               <li><a href="{% url 'feedback:feedback' %}" class="nav-link px-2 text-white">Обратная связь</a></li>
             {% endif %}
 
-            {% if view_name == 'users:user_list' or view_name == 'users:user_detail'%}
-              <li><a href="{% url 'users:user_list' %}" class="nav-link px-2 text-secondary">Список пользователей</a></li>
-            {% else %}
-              <li><a href="{% url 'users:user_list' %}" class="nav-link px-2 text-white">Список пользователей</a></li>
+            {% if user.is_staff %}
+              {% if view_name == 'users:user_list' or view_name == 'users:user_detail'%}
+                <li><a href="{% url 'users:user_list' %}" class="nav-link px-2 text-secondary">Список пользователей</a></li>
+              {% else %}
+                <li><a href="{% url 'users:user_list' %}" class="nav-link px-2 text-white">Список пользователей</a></li>
+              {% endif %}
             {% endif %}
             
           {% endwith %}
@@ -46,7 +48,7 @@
         
         <div class="text-end">
           {% if user.is_authenticated %}
-            <a type="button" class="btn btn-outline-light me-2" href="{% url 'users:profile' %}">Профиль</a>
+            <a type="button" class="btn btn-outline-light me-2" href="{% url 'users:profile' %}">Профиль {{ user.email }}</a>
             <a type="button" class="btn btn-outline-light me-2" href="{% url 'users:password_change' %}">Изменить пароль</a>
             <a type="button" class="btn btn-outline-light me-2" href="{% url 'users:password_reset' %}">Восстановить пароль</a>
             <a type="button" class="btn btn-warning" href="{% url 'users:logout' %}">Выход</a>
