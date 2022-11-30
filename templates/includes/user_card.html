@@ -1,5 +1,29 @@
+{% with request.resolver_match.view_name as view_name %}
 <div class="card user col-4 my-3">
     <div class="card-body">
-        <h5 class="card-title">{{ user.username }}</h5>
+        {% if view_name == 'users:user_list' %}
+            <h5 class="card-title">{{ user.email }}</h5>
+        {% else %}
+            <h5>{{ user.email }}</h5>
+
+            {% if  user.first_name %}
+                <p class="card-title">Имя: {{ user.first_name }}</p>
+            {% else %}
+                <p class="card-title">Имени нет</p>
+            {% endif %}
+
+            {% if  user.last_name %}
+                <p class="card-title">Фамилия: {{ user.last_name }}</p>
+            {% else %}
+                <p class="card-title">Фамилии нет</p>
+            {% endif %}
+
+            {% if  user.birthday %}
+                <p class="card-title">День рождения: {{ user.birthday }}</p>
+            {% else %}
+                <p class="card-title">Дня рождения нет</p>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
+{% endwith %}
