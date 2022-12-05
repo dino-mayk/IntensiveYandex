@@ -1,9 +1,10 @@
-from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, render
 
 from catalog.models import catalog_item as Item
-from .forms import AddMarkForm
 from rating.models import Mark
+
+from .forms import AddMarkForm
 
 
 def item_list(request):
@@ -25,7 +26,8 @@ def item_detail(request, pk):
         init_mark = ''
     print(init_mark)
     form = AddMarkForm(request.POST or None,
-                       initial={Mark.mark.field.name: init_mark})
+                       initial={Mark.mark.field.name: init_mark}
+                       )
     context = {
         'item': item,
         'form': form
@@ -38,6 +40,5 @@ def item_detail(request, pk):
                                       defaults={'mark': mark})
 
         print(mark)
-
 
     return render(request, 'catalog/item_detail.html', context)

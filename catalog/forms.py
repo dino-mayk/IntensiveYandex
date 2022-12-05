@@ -2,6 +2,7 @@ from django.forms import ModelForm
 
 from rating.models import Mark
 
+
 class AddMarkForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
