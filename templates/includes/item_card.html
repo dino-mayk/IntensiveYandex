@@ -3,9 +3,9 @@
     <div class="card-body">
         <h5 class="card-title">{{ item.name }}</h5>
         {% if view_name != 'catalog:item_detail' %}
-            <p class="card-text">{{ item.text|truncatewords_html:10 }}</p>
+            <p class="card-text">{{ item.text|truncatewords_html:10|safe }}</p>
         {% else %}
-            <p class="card-text">{{ item.text }}</p>
+            <p class="card-text">{{ item.text|safe }}</p>
         {% endif %}
         <p class="card-text">Категория: {{ item.category.name }}</p>
         <p class="card-text">

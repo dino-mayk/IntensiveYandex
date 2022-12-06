@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'homepage.apps.HomepageConfig',
     'users.apps.UsersConfig',
+    'rating.apps.RatingConfig',
     'grappelli',
     'tinymce',
     'sorl.thumbnail',
