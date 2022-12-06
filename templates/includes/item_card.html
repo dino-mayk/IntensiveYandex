@@ -1,12 +1,14 @@
 {% with request.resolver_match.view_name as view_name %}
 <div class="card item col-4 my-3">
     <div class="card-body">
-        <h5 class="card-title">{{ item.name }}</h5>
+        <h5 class="card-title"><a href="{% url 'catalog:item_detail' item.id %}">{{ item.name }}</a></h5>
+
         {% if view_name != 'catalog:item_detail' %}
-            <p class="card-text">{{ item.text|truncatewords_html:10 }}</p>
+            <p class="card-text">{{ item.text|truncatewords_html:10|safe }}</p>
         {% else %}
-            <p class="card-text">{{ item.text }}</p>
+            <p class="card-text">{{ item.text|safe }}</p>
         {% endif %}
+
         <p class="card-text">Категория: {{ item.category.name }}</p>
         <p class="card-text">
             Теги:
@@ -14,6 +16,20 @@
                 {{ tag.name }}.
             {% endfor %}
         </p>
+
+        {% if view_name == 'catalog:item_detail' %}
+            <p>Количество оценок товара: {{ count_marks }}</p>
+            <p>Средняя оценка товара: {{ average_mark }}</p>
+        {% endif %}
+
+        {% if user.is_authenticated and view_name == 'catalog:item_detail' %}
+            <form class="m-2" method="POST">
+                {% csrf_token %}
+                {% include 'includes/form.html' with form=form %}
+                <input class="m-2" type="submit" value="Поставить оценку">
+            </form>
+        {% endif %}
+
         <a href="#" class="btn btn-primary">Купить</a>
     </div>
 </div>

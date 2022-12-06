@@ -18,7 +18,7 @@ urlpatterns = [
         name='user_list'
     ),
     re_path(
-        r'(?P<pk>^[1-9]\d*)/$',
+        r'^(?P<pk>[1-9]\d*)/$',
         views.user_detail,
         name='user_detail'
     ),
