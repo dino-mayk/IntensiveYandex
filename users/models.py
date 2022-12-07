@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField('email address', unique=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    birthday = models.DateTimeField(
+    birthday = models.DateField(
         'день рождения',
         blank=True,
         null=True,
