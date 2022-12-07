@@ -1,0 +1,12 @@
+<div class="container">
+    <h3>Поздравим наших именниников</h3>
+        {% for user in birthday_users %}    
+        <div class="card user col-4 my-3">
+            <div class="card-body">
+                <p><b>Имя</b>: {{ user.username }}</p>
+                <p><b>Почта</b>: {{user.email}}</p>        
+            </div>
+        </div>
+        {% endfor %}
+</div>
+    
