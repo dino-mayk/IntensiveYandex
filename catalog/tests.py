@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.shortcuts import reverse
 from django.test import Client, TestCase
 
 from .models import catalog_category as Category
@@ -108,7 +109,7 @@ class ModelsTests(TestCase):
 
 class TaskPagesTests(TestCase):
     def test_item_list_context(self):
-        response = Client().get('/catalog/')
+        response = Client().get(reverse('catalog:item_list'))
         self.assertIn('items', response.context)
 
 

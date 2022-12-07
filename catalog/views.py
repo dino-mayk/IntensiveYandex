@@ -1,6 +1,6 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, FormView, DetailView
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import DetailView, FormView, ListView
 
 from catalog.models import catalog_item as Item
 from rating.forms import AddMarkForm

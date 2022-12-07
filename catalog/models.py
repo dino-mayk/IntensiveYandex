@@ -4,9 +4,9 @@ from django_cleanup.signals import cleanup_pre_delete
 from sorl.thumbnail import delete, get_thumbnail
 from tinymce.models import HTMLField
 
+from catalog.managers import ItemManager, catalog_tag
 from catalog.validators import validate_must_be_param
 from core.models import catalog, catalog_slug
-from catalog.managers import ItemManager, catalog_tag
 
 
 class catalog_category(catalog_slug):
