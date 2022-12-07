@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Prefetch
 from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
 from sorl.thumbnail import delete, get_thumbnail
@@ -7,12 +6,7 @@ from tinymce.models import HTMLField
 
 from catalog.validators import validate_must_be_param
 from core.models import catalog, catalog_slug
-
-
-class catalog_tag(catalog_slug):
-    class Meta:
-        verbose_name = "тег"
-        verbose_name_plural = "теги"
+from catalog.managers import ItemManager, catalog_tag
 
 
 class catalog_category(catalog_slug):
@@ -25,30 +19,6 @@ class catalog_category(catalog_slug):
     class Meta:
         verbose_name = "категорию"
         verbose_name_plural = "категории"
-
-
-class ItemManager(models.Manager):
-    def homepage(self):
-        return (
-            self.get_queryset()
-                .filter(is_published=True, is_on_main=True)
-                .select_related('category')
-                .order_by('name')
-                .prefetch_related(
-                    Prefetch('tags', queryset=catalog_tag.objects.all())
-                )
-        )
-
-    def catalog(self):
-        return (
-            self.get_queryset()
-                .filter(is_published=True)
-                .select_related('category')
-                .order_by('category__name')
-                .prefetch_related(
-                    Prefetch('tags', queryset=catalog_tag.objects.all())
-                )
-        )
 
 
 class catalog_item(catalog):
