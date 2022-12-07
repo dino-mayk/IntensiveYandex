@@ -14,22 +14,22 @@ app_name = 'users'
 urlpatterns = [
     path(
         '',
-        views.user_list,
+        views.User_list.as_view(),
         name='user_list'
     ),
     re_path(
         r'^(?P<pk>[1-9]\d*)/$',
-        views.user_detail,
+        views.User_detail.as_view(),
         name='user_detail'
     ),
     path(
         'signup/',
-        views.signup,
+        views.Signup.as_view(),
         name='signup'
     ),
     path(
         'profile/',
-        views.profile,
+        views.Profile.as_view(),
         name='profile'
     ),
     path(

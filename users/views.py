@@ -1,13 +1,13 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView, View
 
 from users.forms import CustomUserProfileForm, CustomUserSignUpForm
 from users.models import CustomUser
 
 
-def signup(request):
-    if request.method == 'POST':
+class Signup(View):
+    def post(self, request):
         form = CustomUserSignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -19,37 +19,37 @@ def signup(request):
             login(request, user)
 
             return redirect('homepage:home')
-    form = CustomUserSignUpForm()
-    return render(request, 'users/signup.html', {'form': form})
+
+    def get(self, request):
+        form = CustomUserSignUpForm()
+        return render(request, 'users/signup.html', {'form': form})
 
 
-def user_list(request):
-    users = CustomUser.objects.all()
-
-    context = {
-        'users': users,
-    }
-
-    return render(request, 'users/user_list.html', context)
+class User_list(ListView):
+    model = CustomUser
+    context_object_name = 'users'
+    template_name = 'users/user_list.html'
 
 
-def user_detail(request, pk):
-    user = get_object_or_404(CustomUser, pk=pk)
-    context = {
-        'user': user,
-    }
+class User_detail(View):
 
-    return render(request, 'users/user_detail.html', context)
+    def get(self, request, pk):
+        user = get_object_or_404(CustomUser, pk=pk)
+        context = {
+            'user': user,
+        }
+
+        return render(request, 'users/user_detail.html', context)
 
 
-@login_required
-def profile(request):
-    if request.method == 'POST':
+class Profile(View):
+    def post(self, request):
         form = CustomUserProfileForm(data=request.POST, instance=request.user)
         update = form.save(commit=False)
         update.user = request.user
         update.save()
-    else:
-        form = CustomUserProfileForm(instance=request.user)
+        return render(request, 'users/profile.html', {'form': form})
 
-    return render(request, 'users/profile.html', {'form': form})
+    def get(sekf, request):
+        form = CustomUserProfileForm(instance=request.user)
+        return render(request, 'users/profile.html', {'form': form})
