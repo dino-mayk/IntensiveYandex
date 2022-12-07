@@ -30,9 +30,11 @@ class User_list(ListView):
     context_object_name = 'users'
     template_name = 'users/user_list.html'
 
+    def get_queryset(self):
+        return CustomUser.objects.active()
+
 
 class User_detail(View):
-
     def get(self, request, pk):
         user = get_object_or_404(CustomUser, pk=pk)
         context = {
@@ -44,12 +46,18 @@ class User_detail(View):
 
 class Profile(View):
     def post(self, request):
-        form = CustomUserProfileForm(data=request.POST, instance=request.user)
-        update = form.save(commit=False)
-        update.user = request.user
-        update.save()
+        try:
+            form = CustomUserProfileForm(
+                request.POST or None,
+                instance=request.user)
+            form.save()
+        except ValueError:
+            pass
         return render(request, 'users/profile.html', {'form': form})
 
     def get(sekf, request):
-        form = CustomUserProfileForm(instance=request.user)
+        form = CustomUserProfileForm(
+            request.POST or None,
+            instance=request.user)
+        print(form)
         return render(request, 'users/profile.html', {'form': form})
