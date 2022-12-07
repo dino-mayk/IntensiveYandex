@@ -33,7 +33,6 @@ class FormTests(TestCase):
 
 
 class ModelTests(TestCase):
-
     def test_new_feedback_object(self):
         feedback_count = Feedback.objects.count()
 

@@ -59,5 +59,4 @@ class Profile(View):
         form = CustomUserProfileForm(
             request.POST or None,
             instance=request.user)
-        print(form)
         return render(request, 'users/profile.html', {'form': form})
