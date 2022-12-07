@@ -1,13 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from catalog.models import catalog_item as Item
 
 
-def home(request):
-    items = Item.objects.homepage()
+class Home(TemplateView):
+    model = Item
+    template_name = 'homepage/index.html'
 
-    context = {
-        'items': items,
-    }
-
-    return render(request, 'homepage/index.html', context)
+    def get_queryset(self):
+        return Item.objects.homepage()
