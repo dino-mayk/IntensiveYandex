@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
-from django.test import Client, TestCase
+from django.test import TestCase
 
-from .models import catalog_category as Category
-from .models import catalog_item as Item
-from .models import catalog_tag as Tag
+from catalog.models import catalog_category as Category
+from catalog.models import catalog_item as Item
+from catalog.models import catalog_tag as Tag
 
 
 class ModelsTests(TestCase):
@@ -104,12 +104,6 @@ class ModelsTests(TestCase):
             self.tag.save()
 
         self.assertEqual(Tag.objects.count(), tag_count)
-
-
-class TaskPagesTests(TestCase):
-    def test_item_list_context(self):
-        response = Client().get('/catalog/')
-        self.assertIn('items', response.context)
 
 
 # python manage.py test catalog

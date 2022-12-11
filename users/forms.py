@@ -1,16 +1,34 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from users.models import CustomUser
 
 
 class CustomUserSignUpForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = CustomUser
         fields = ('email', 'password1', 'password2', )
 
 
-class CustomUserProfileForm(forms.ModelForm):
+class CustomUserProfileForm(UserChangeForm):
+    password = None
+
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'birthday', ]
+        fields = (
+            'username',
+            'first_name',
+            'birthday')
+        labels = {
+            'first_name': 'Имя',
+            'birthday': 'День рождения',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs['class'] = 'form-control'

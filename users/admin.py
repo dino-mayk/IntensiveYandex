@@ -1,11 +1,25 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
 from users.models import CustomUser
 
 
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
-
-
-admin.site.register(CustomUser, CustomUserAdmin)
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = (
+        'email',
+        'birthday',
+        'is_staff'
+    )
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    search_fields = ('email', )
+    ordering = ('email',)
+    filter_horizontal = ('groups', 'user_permissions',)
+    fieldsets = (
+        (None, {
+            'fields': ('email', 'password')}),
+        ('Персональная информация', {
+            'fields': ('birthday', )}),
+        ('Статус', {
+            'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('Остальные штуки', {'fields': ('last_login',)}),
+    )
