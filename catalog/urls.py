@@ -5,6 +5,9 @@ from catalog import views
 app_name = 'catalog'
 
 urlpatterns = [
-    path('', views.item_list, name='item_list'),
-    re_path(r'(?P<pk>^[1-9]\d*)/$', views.item_detail, name='item_detail'),
+    path('', views.Item_list.as_view(), name='item_list'),
+    re_path(
+        r'^(?P<pk>[1-9]\d*)/$',
+        views.Item_detail.as_view(),
+        name='item_detail'),
 ]
