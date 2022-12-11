@@ -1,6 +1,6 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, FormView, DetailView
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import DetailView, FormView, ListView
 
 from catalog.models import catalog_item as Item
 from rating.forms import AddMarkForm
@@ -24,7 +24,10 @@ class Item_detail(DetailView, FormView):
         item = get_object_or_404(Item.objects.catalog(), pk=pk)
         marks = Mark.objects.filter(item_id=pk)
         count_marks = len(marks)
-        average_mark = sum([user.mark for user in marks]) / count_marks
+        try:
+            average_mark = sum([user.mark for user in marks]) / count_marks
+        except ZeroDivisionError:
+            average_mark = 0
 
         context = {
             'item': item,
@@ -50,7 +53,10 @@ class Item_detail(DetailView, FormView):
         item = get_object_or_404(Item.objects.catalog(), pk=pk)
         marks = Mark.objects.filter(item_id=pk)
         count_marks = len(marks)
-        average_mark = sum([user.mark for user in marks]) / count_marks
+        try:
+            average_mark = sum([user.mark for user in marks]) / count_marks
+        except ZeroDivisionError:
+            average_mark = 0
 
         context = {
             'item': item,
